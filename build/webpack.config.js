@@ -2,7 +2,7 @@
  * @Author: linfeng3
  * @Date: 2022-02-25 09:53:46
  * @LastEditors: linfeng3
- * @LastEditTime: 2022-02-25 15:56:24
+ * @LastEditTime: 2022-02-28 10:19:44
  * @FilePath: \L-ui\build\webpack.config.js
  * @Description: file content
  */
@@ -10,7 +10,7 @@ const path = require('path')
 const config = require('./config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const ESLintWebpackPlugin = require('eslint-webpack-plugin')
+// const ESLintWebpackPlugin = require('eslint-webpack-plugin')
 module.exports = {
   mode: process.env.NODE_ENV,
   entry: './examples/main.js',
@@ -20,6 +20,8 @@ module.exports = {
   },
   devServer: {
     contentBase: './dist',
+    port: 8086,
+    hot: true,
   },
   resolve: {
     // 引入模块时不带扩展
@@ -43,8 +45,8 @@ module.exports = {
       // 它会应用到普通的 `.css` 文件
       // 以及 `.vue` 文件中的 `<style>` 块
       {
-        test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader'],
+        test: /\.(scss|css)$/,
+        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpe?g|gif|svg|otf|ttf|woff2?|eot)(\?.*)?$/,
@@ -93,9 +95,9 @@ module.exports = {
       inject: true,
     }),
     // node版本过低造成报错 in Module.createRequire is not a function
-    new ESLintWebpackPlugin({
-      fix: true,
-      extensions: ['js', 'vue'],
-    }),
+    // new ESLintWebpackPlugin({
+    //   fix: true,
+    //   extensions: ['js', 'vue'],
+    // }),
   ],
 }

@@ -17,95 +17,149 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .demo-block {
   border: solid 1px #ebebeb;
   border-radius: 3px;
   transition: 0.2s;
-}
-.demo-block.hover {
-  box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
-}
-.demo-block code {
-  font-family: Menlo, Monaco, Consolas, Courier, monospace;
+  .hover {
+    box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
+  }
+  code {
+    font-family: Menlo, Monaco, Consolas, Courier, monospace;
+  }
+  .source {
+    padding: 24px;
+  }
+  .meta {
+    background-color: #fafafa;
+    border-top: solid 1px #eaeefb;
+    overflow: hidden;
+    height: 0;
+    transition: height 0.2s;
+  }
+  .description {
+    padding: 20px;
+    box-sizing: border-box;
+    border: solid 1px #ebebeb;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 22px;
+    color: #666;
+    word-break: break-word;
+    margin: 10px;
+    background-color: #fff;
+    p {
+      margin: 0;
+      line-height: 26px;
+    }
+    code {
+      color: #5e6d82;
+      background-color: #e6effb;
+      margin: 0 4px;
+      display: inline-block;
+      padding: 1px 5px;
+      font-size: 12px;
+      border-radius: 3px;
+      height: 18px;
+      line-height: 18px;
+    }
+  }
+  .highlight {
+    pre {
+      margin: 0;
+    }
+    code.hljs {
+      margin: 0;
+      border: none;
+      max-height: none;
+      border-radius: 0;
+      padding: 1em;
+      &::before {
+        content: none;
+      }
+    }
+  }
+  .demo-block-control {
+    border-top: solid 1px #eaeefb;
+    height: 44px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    text-align: center;
+    margin-top: -1px;
+    color: #409eff;
+    cursor: pointer;
+    position: relative;
+    & > span {
+      position: absolute;
+      transform: translateX(-30px);
+      font-size: 14px;
+      line-height: 44px;
+      transition: 0.3s;
+      display: inline-block;
+    }
+    &:hover {
+      background-color: #f9fafc;
+    }
+  }
 }
 
-.demo-block .source {
-  padding: 24px;
+.content {
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: 400;
+    color: #1f2f3d;
+    a {
+      float: left;
+      margin-left: -20px;
+      opacity: 0;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.4;
+      }
+    }
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #fff;
+    font-size: 14px;
+    margin-bottom: 45px;
+    line-height: 1.5em;
+    td,
+    th {
+      border-bottom: 1px solid #dcdfe6;
+      padding: 15px;
+      max-width: 250px;
+      &:first-child {
+        padding-left: 10px;
+      }
+    }
+    th {
+      text-align: left;
+      white-space: nowrap;
+      color: #909399;
+      font-weight: 400;
+    }
+    td {
+      color: #606266;
+    }
+  }
 }
-.demo-block .meta {
-  background-color: #fafafa;
-  border-top: solid 1px #eaeefb;
-  overflow: hidden;
-  height: 0;
-  transition: height 0.2s;
-}
-.demo-block .description {
-  padding: 20px;
-  box-sizing: border-box;
-  border: solid 1px #ebebeb;
-  border-radius: 3px;
-  font-size: 14px;
-  line-height: 22px;
-  color: #666;
-  word-break: break-word;
-  margin: 10px;
+
+/* .content table td:first-child,
+.content table th:first-child {
+  border-collapse: collapse;
+  width: 100%;
   background-color: #fff;
-}
-.demo-block .description p {
-  margin: 0;
-  line-height: 26px;
-}
-.demo-block .description code {
-  color: #5e6d82;
-  background-color: #e6effb;
-  margin: 0 4px;
-  display: inline-block;
-  padding: 1px 5px;
-  font-size: 12px;
-  border-radius: 3px;
-  height: 18px;
-  line-height: 18px;
-}
-.demo-block .highlight pre {
-  margin: 0;
-}
-
-.demo-block .highlight code.hljs {
-  margin: 0;
-  border: none;
-  max-height: none;
-  border-radius: 0;
-  padding: 1em;
-}
-.demo-block .highlight code.hljs::before {
-  content: none;
-}
-.demo-block .demo-block-control {
-  border-top: solid 1px #eaeefb;
-  height: 44px;
-  box-sizing: border-box;
-  background-color: #fff;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  text-align: center;
-  margin-top: -1px;
-  color: #409eff;
-  cursor: pointer;
-  position: relative;
-}
-
-.demo-block .demo-block-control > span {
-  position: absolute;
-  transform: translateX(-30px);
   font-size: 14px;
-  line-height: 44px;
-  transition: 0.3s;
-  display: inline-block;
-}
-.demo-block .demo-block-control:hover {
-  background-color: #f9fafc;
-}
+  margin-bottom: 45px;
+  line-height: 1.5em;
+} */
 </style>
 
 <script>

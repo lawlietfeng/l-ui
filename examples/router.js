@@ -10,11 +10,6 @@ const routes = [
   },
 ]
 routes.push({
-  path: '/test',
-  name: 'test',
-  component: (resolve) => require(['./docs/loading.md'], resolve),
-})
-routes.push({
   path: '/test2',
   name: 'test2',
   component: (resolve) => require(['./docs/button.md'], resolve),
