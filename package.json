@@ -1,14 +1,14 @@
 {
-  "name": "l-ui-vue",
-  "version": "0.0.2",
+  "name": "lie-ui-vue",
+  "version": "0.0.1",
   "description": "A Vue.js 2.X UI Toolkit for Web",
-  "main": "lib/me-vue-ui.common.js",
+  "main": "lib/l-ui.common.js",
   "keyword": [
     "l-vue",
     "vuejs",
     "components",
     "ui-kit"
-  ], 
+  ],
   "author": "lawliet",
   "private": false,
   "repository": {
@@ -23,7 +23,8 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.js"
   },
   "dependencies": {
-    "babel-helper-vue-jsx-merge-props": "^2.0.3"
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "lie-ui-vue": "^0.0.1"
   },
   "peerDependencies": {
     "vue": "^2.6.12"

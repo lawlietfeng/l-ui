@@ -2,7 +2,7 @@
 
 ## Install
 ```shell
-npm install fehorizon-ui -S
+npm install lie-ui-vue
 ```
 
 ## Quick Start
