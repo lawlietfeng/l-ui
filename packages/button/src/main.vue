@@ -1,5 +1,5 @@
 <template>
-  <div class="l-button">
+  <div class="l-button" :class="[type ? `l-button-${type}` : '']">
     <slot></slot>
   </div>
 </template>
@@ -10,21 +10,46 @@ export default {
   data() {
     return {}
   },
+  props: {
+    type: {
+      type: String,
+      default: 'primary',
+    },
+  },
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .l-button {
-  width: 100px;
+  &:nth-child(n + 2) {
+    margin-left: 10px;
+  }
+  &-primary {
+    background-color: #409eff !important;
+  }
+  &-success {
+    background-color: #67c23a !important;
+  }
+  &-warning {
+    background-color: #e6a23c !important;
+  }
+  &-danger {
+    background-color: #f56c6c !important;
+  }
+  &-info {
+    background-color: #909399 !important;
+  }
 }
 .l-button,
 .l-button::after {
+  /* width: 80px; */
+  display: inline-block;
   font-family: 'Do Hyeon', sans-serif;
   /* width: 260px; */
-  padding: 15px 40px;
+  padding: 5px 15px;
   /* height: 80px; */
   text-align: center;
-  font-size: 22px;
+  font-size: 16px;
   /* line-height: 80px; */
   color: rgb(255, 251, 251);
   background: linear-gradient(30deg, transparent 10%, #00062b 10% 95%, #00e4ff 95%);
@@ -41,8 +66,6 @@ export default {
   right: 0;
   text-shadow: -5px -2px 0 rgb(0, 183, 255), 5px 2px 0 rgb(0, 255, 115);
   visibility: hidden;
-}
-.l-button::after {
   animation: san 1s steps(1, end) infinite;
 }
 

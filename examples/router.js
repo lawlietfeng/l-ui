@@ -1,29 +1,39 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import components from '../components.json';
+import Router from 'vue-router';
 
-Vue.use(VueRouter)
-const routes = [
-  {
-    path: '/',
-    name: 'index',
-    component: (resolve) => require(['./components/HelloWorld.vue'], resolve),
-  },
-]
-routes.push({
-  path: '/test2',
-  name: 'test2',
-  component: (resolve) => require(['./docs/button.md'], resolve),
-})
+const children = Object.keys(components).map((componentName) => {
+  return {
+    path: componentName,
+    name: componentName,
+    component: () => import(`./docs/${componentName}.md`),
+  };
+});
 
-routes.push({
-  path: '/jsx',
-  name: 'jsx',
-  component: (resolve) => require(['./components/JSX.vue'], resolve),
-  // component: () => import('./components/JSX.vue'),
-})
+Vue.use(Router);
 
-export default new VueRouter({
+export default new Router({
   mode: 'hash',
   base: __dirname,
-  routes,
-})
+  routes: [
+    {
+      path: '/',
+      redirect: 'l-ui',
+      component: (resolve) => require(['./layout/index.vue'], resolve),
+      children: [
+        {
+          path: '/l-ui',
+          name: 'l-ui',
+          component: (resolve) => require(['./views/l-ui.vue'], resolve),
+        },
+        {
+          path: '/components',
+          name: 'components',
+          redirect: '/components/button',
+          component: (resolve) => require(['./layout/components.vue'], resolve),
+          children: [...children],
+        },
+      ],
+    },
+  ],
+});

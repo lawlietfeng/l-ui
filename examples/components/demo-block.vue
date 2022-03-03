@@ -1,27 +1,124 @@
 <template>
-  <div class="demo-block" :class="[blockClass, { hover: hovering }]" @mouseenter="hovering = true" @mouseleave="hovering = false">
-    <div class="source">
+  <div class="demo-block" :class="[blockClass, { inIframe: !inIframe }]">
+    <div class="source" :class="{ inIframe: !inIframe }">
       <slot name="source"></slot>
     </div>
-    <div class="meta" ref="meta">
-      <div class="description" v-if="$slots.default">
-        <slot></slot>
+    <div v-if="$slots.default && inIframe" class="description">
+      <slot></slot>
+      <div class="demo-block-control">
+        <svg-icon icon-class="openOnline"></svg-icon>
+        <svg-icon ref="copy" icon-class="copy" @click.native="copyCode"></svg-icon>
+        <svg-icon icon-class="code" @click.native="isExpanded = !isExpanded"></svg-icon>
       </div>
+    </div>
+    <div v-if="inIframe" ref="meta" class="meta">
       <div class="highlight">
         <slot name="highlight"></slot>
       </div>
     </div>
-    <div class="demo-block-control" ref="control" @click="isExpanded = !isExpanded">
-      <span>{{ controlText }}</span>
-    </div>
   </div>
 </template>
-
-<style lang="scss">
+<script>
+import { mapGetters } from 'vuex'
+export default {
+  data() {
+    return {
+      isExpanded: false,
+    }
+  },
+  computed: {
+    ...mapGetters(['inIframe']),
+    blockClass() {
+      return ` demo-${this.$route.name}`
+    },
+    controlText() {
+      return this.isExpanded ? '隐藏代码' : '显示代码'
+    },
+    codeArea() {
+      return this.$el.getElementsByClassName('meta')[0]
+    },
+    codeAreaHeight() {
+      return this.$el.getElementsByClassName('highlight')[0].clientHeight + 20
+    },
+  },
+  watch: {
+    isExpanded(val) {
+      this.codeArea.style.height = val ? `${this.codeAreaHeight + 1}px` : '0'
+    },
+  },
+  mounted() {
+    if (this.$route.name.startsWith('lm-')) {
+      if (!this.inIframe) {
+        const contents = [...document.body.querySelectorAll('.content')]
+        const childs = contents.map((content) => [...content.children])
+        childs.forEach((child) => {
+          child.forEach((c) => {
+            // console.dir(c);
+            if (c.className.includes('demo-block') || c.localName === 'h2' || (c.localName === 'h3' && !['attributes'].includes(c.id))) {
+              return
+            }
+            c.style.display = 'none'
+          })
+        })
+      } else {
+        const sources = [...document.body.querySelectorAll('.source')]
+        sources.forEach((source) => {
+          source.style.display = 'none'
+        })
+      }
+    }
+  },
+  methods: {
+    copyCode() {
+      console.log(this.$refs.meta.innerText)
+      this.copy(this.$refs.meta.innerText)
+    },
+    copy(text) {
+      const textString = text.toString()
+      let input = document.querySelector('#copy-input')
+      if (!input) {
+        input = document.createElement('textarea')
+        input.id = 'copy-input'
+        input.readOnly = 'readOnly' // 防止ios聚焦触发键盘事件
+        input.style.position = 'absolute'
+        input.style.left = '-1000px'
+        input.style.zIndex = '-1000'
+        document.body.appendChild(input)
+      }
+      input.value = textString
+      // ios必须先选中文字且不支持 input.select();
+      this.selectText(input, 0, textString.length)
+      console.log(document.execCommand('copy'), 'execCommand')
+      if (document.execCommand('copy')) {
+        document.execCommand('copy')
+        // TODO 复制成功提示
+      }
+      input.blur()
+    },
+    selectText(textbox, startIndex, stopIndex) {
+      if (textbox.createTextRange) {
+        // ie
+        const range = textbox.createTextRange()
+        range.collapse(true)
+        range.moveStart('character', startIndex) // 起始光标
+        range.moveEnd('character', stopIndex - startIndex) // 结束光标
+        range.select() // 不兼容苹果
+      } else {
+        // firefox/chrome
+        textbox.setSelectionRange(startIndex, stopIndex)
+        textbox.focus()
+      }
+    },
+  },
+}
+</script>
+<style lang="scss" scoped>
 .demo-block {
-  border: solid 1px #ebebeb;
   border-radius: 3px;
   transition: 0.2s;
+  &.inIframe {
+    border: none;
+  }
   .hover {
     box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5);
   }
@@ -29,26 +126,46 @@
     font-family: Menlo, Monaco, Consolas, Courier, monospace;
   }
   .source {
-    padding: 24px;
+    padding: 15px;
+    &.inIframe {
+      padding: 0;
+    }
   }
   .meta {
-    background-color: #fafafa;
-    border-top: solid 1px #eaeefb;
     overflow: hidden;
     height: 0;
     transition: height 0.2s;
+
+    .highlight {
+      margin-top: 20px;
+      pre {
+        margin: 0;
+      }
+      code.hljs {
+        margin: 0;
+        border: none;
+        max-height: none;
+        border-radius: 0;
+        padding: 1em;
+        border-radius: 4px;
+        &::before {
+          content: none;
+        }
+      }
+    }
   }
   .description {
     padding: 20px;
     box-sizing: border-box;
-    border: solid 1px #ebebeb;
     border-radius: 3px;
     font-size: 14px;
     line-height: 22px;
     color: #666;
     word-break: break-word;
-    margin: 10px;
-    background-color: #fff;
+    background-color: #f9fafa;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     p {
       margin: 0;
       line-height: 26px;
@@ -64,140 +181,33 @@
       height: 18px;
       line-height: 18px;
     }
-  }
-  .highlight {
-    pre {
-      margin: 0;
-    }
-    code.hljs {
-      margin: 0;
-      border: none;
-      max-height: none;
-      border-radius: 0;
-      padding: 1em;
-      &::before {
-        content: none;
+    .demo-block-control {
+      border: solid 1px #eaeefb;
+      width: 106px;
+      height: 30px;
+      border-radius: 15px;
+      box-sizing: border-box;
+      background-color: #fff;
+      color: #409eff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      ::v-deep .svg-icon {
+        width: 12px;
+        height: 12px;
+        cursor: pointer;
+        fill: #000;
+        &:hover {
+          fill: #0061ff;
+        }
+        &:nth-child(n + 2) {
+          margin-left: 18px;
+        }
+        // &:first-child{
+        //   cursor: url('../assets/mouse.png'), auto;
+        // }
       }
-    }
-  }
-  .demo-block-control {
-    border-top: solid 1px #eaeefb;
-    height: 44px;
-    box-sizing: border-box;
-    background-color: #fff;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    text-align: center;
-    margin-top: -1px;
-    color: #409eff;
-    cursor: pointer;
-    position: relative;
-    & > span {
-      position: absolute;
-      transform: translateX(-30px);
-      font-size: 14px;
-      line-height: 44px;
-      transition: 0.3s;
-      display: inline-block;
-    }
-    &:hover {
-      background-color: #f9fafc;
     }
   }
 }
-
-.content {
-  h2,
-  h3,
-  h4,
-  h5 {
-    font-weight: 400;
-    color: #1f2f3d;
-    a {
-      float: left;
-      margin-left: -20px;
-      opacity: 0;
-      cursor: pointer;
-      &:hover {
-        opacity: 0.4;
-      }
-    }
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    background-color: #fff;
-    font-size: 14px;
-    margin-bottom: 45px;
-    line-height: 1.5em;
-    td,
-    th {
-      border-bottom: 1px solid #dcdfe6;
-      padding: 15px;
-      max-width: 250px;
-      &:first-child {
-        padding-left: 10px;
-      }
-    }
-    th {
-      text-align: left;
-      white-space: nowrap;
-      color: #909399;
-      font-weight: 400;
-    }
-    td {
-      color: #606266;
-    }
-  }
-}
-
-/* .content table td:first-child,
-.content table th:first-child {
-  border-collapse: collapse;
-  width: 100%;
-  background-color: #fff;
-  font-size: 14px;
-  margin-bottom: 45px;
-  line-height: 1.5em;
-} */
 </style>
-
-<script>
-export default {
-  data() {
-    return {
-      hovering: false,
-      isExpanded: false,
-    }
-  },
-  computed: {
-    blockClass() {
-      return ` demo-${this.$router.currentRoute.path.split('/').pop()}`
-    },
-    controlText() {
-      return this.isExpanded ? '隐藏代码' : '显示代码'
-    },
-    codeArea() {
-      return this.$el.getElementsByClassName('meta')[0]
-    },
-    codeAreaHeight() {
-      if (this.$el.getElementsByClassName('description').length > 0) {
-        return this.$el.getElementsByClassName('description')[0].clientHeight + this.$el.getElementsByClassName('highlight')[0].clientHeight + 20
-      }
-      return this.$el.getElementsByClassName('highlight')[0].clientHeight
-    },
-  },
-  watch: {
-    isExpanded(val) {
-      this.codeArea.style.height = val ? `${this.codeAreaHeight + 1}px` : '0'
-      if (!val) {
-        this.$refs.control.style.left = '0'
-        return
-      }
-    },
-  },
-  created() {},
-  mounted() {},
-  methods: {},
-}
-</script>

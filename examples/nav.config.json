@@ -1,0 +1,45 @@
+[
+  {
+    "name": "更新日志",
+    "path": ""
+  },
+  {
+    "name": "开发指南",
+    "children": [
+      {
+        "name": "安装",
+        "path": ""
+      },
+      {
+        "name": "开发规范",
+        "path": "./components/development-standard"
+      }
+    ]
+  },
+  {
+    "name": "布局",
+    "children": [
+      {
+        "name": "Layout 布局",
+        "path": ""
+      },
+      {
+        "name": "Container 布局容器",
+        "path": ""
+      }
+    ]
+  },
+  {
+    "name": "基础组件",
+    "children": [
+      {
+        "name": "按钮",
+        "path": "/components/button"
+      },
+      {
+        "name": "按钮m",
+        "path": "/components/lm-button"
+      }
+    ]
+  }
+]

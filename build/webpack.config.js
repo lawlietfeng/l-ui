@@ -2,7 +2,7 @@
  * @Author: linfeng3
  * @Date: 2022-02-25 09:53:46
  * @LastEditors: linfeng3
- * @LastEditTime: 2022-02-28 10:19:44
+ * @LastEditTime: 2022-03-03 16:18:14
  * @FilePath: \L-ui\build\webpack.config.js
  * @Description: file content
  */
@@ -20,6 +20,7 @@ module.exports = {
   },
   devServer: {
     contentBase: './dist',
+    // host: '0.0.0.0',
     port: 8086,
     hot: true,
   },
@@ -50,6 +51,9 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg|otf|ttf|woff2?|eot)(\?.*)?$/,
+        exclude: [
+          path.resolve(__dirname, '../examples/icons'),
+        ],
         use: [
           {
             loader: 'url-loader',
@@ -59,6 +63,18 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        exclude: /^node_modules$/,
+        include: [
+          path.resolve(__dirname, '../examples/icons'),
+        ],
+        options: {
+          symbolId: 'icon-[name]',
+          extract: false
+        }
       },
       {
         test: /\.(jsx?|babel|es6)$/,
