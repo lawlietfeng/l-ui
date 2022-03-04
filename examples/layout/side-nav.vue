@@ -18,6 +18,18 @@
             />
           </li>
         </ul>
+        <ul v-if="nav.groups" class="side-nav__sub-nav">
+          <li v-for="(subNav, subIndex) in nav.groups" :key="subIndex" class="side-nav__sub-nav__item">
+            <a v-if="!subNav.path">{{ subNav.name }}</a>
+            <router-link 
+              v-if="subNav.path"
+              active-class="active"
+              :to="subNav.path"
+              exact
+              v-text="subNav.title || subNav.name"
+            />
+          </li>
+        </ul>
       </li>
     </ul>
   </div>

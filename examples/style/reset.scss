@@ -1,7 +1,12 @@
-* {
-  font-family: PingFangSC-Medium, PingFang SC;
+@import "./var.scss";
+html, body {
+  height: 100%;
+  font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',SimSun,sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
 }
-
+html,
 body,
 div,
 dl,
@@ -37,6 +42,10 @@ section {
   padding: 0;
   box-sizing: border-box;
 }
+a {
+  color: #409EFF;
+  text-decoration: none;
+}
 
 ul,
 ol {
@@ -44,6 +53,6 @@ ol {
 }
 
 #app{
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
 }

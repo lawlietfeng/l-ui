@@ -27,40 +27,6 @@
         <div style="width: 50px; height: 50px; background-color: #ffffff">白</div>
       </div>
     </div>
-    <h3>babula</h3>
-    <ul class="main-card-list">
-      <li class="card">
-        <!-- <h3>产品</h3>
-        <p>布局框架交互视觉样式有据可依<br>释放精力专</p> -->
-      </li>
-      <li class="card">
-        <!-- <h3>设计</h3>
-        <p>高度的一致性是跨系统操作的高效<br>保证；清晰的指向，降低理解门槛</p> -->
-      </li>
-      <li class="card">
-        <!-- <h3>研发</h3>
-        <p>节省50%开发时间，无需关心组件逻辑<br>focus业务逻辑，便捷高效</p> -->
-      </li>
-    </ul>
-    <h3>bubala</h3>
-    <ul class="main-source-list">
-      <li class="source">
-        <img src="../assets/sketch.png" />
-        <!-- <span>Sketch组件库</span> -->
-      </li>
-      <li class="source">
-        <img src="../assets/figma.png" />
-        <!-- <span>Figma</span> -->
-      </li>
-      <li class="source">
-        <img src="../assets/vue2.png" />
-        <!-- <span>Vue</span> -->
-      </li>
-      <li class="source">
-        <img src="../assets/vue2.png" />
-        <!-- <span>Vue-Mobile</span> -->
-      </li>
-    </ul>
   </div>
 </template>
 <script>
@@ -85,6 +51,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+@import '../style/var.scss';
 .main-container {
   margin-left: -20px;
   h2 {
@@ -92,6 +59,7 @@ export default {
     margin: 57px 0 0 0;
     text-align: center;
     font-weight: 500;
+    // background-color: $--color-primary-light-4;
   }
   h3 {
     margin-top: 80px;
@@ -158,71 +126,6 @@ export default {
       font-size: 22px;
       color: #fffef8;
       cursor: pointer;
-    }
-  }
-  .main-card-list {
-    display: flex;
-    .card {
-      flex: 1;
-      height: 400px;
-      background-color: purple;
-      border-radius: 26px;
-      background: url('../assets/product.png') no-repeat;
-      background-size: cover;
-      color: #ffffff;
-      padding-left: 30px;
-      &:nth-child(n + 2) {
-        margin-left: 30px;
-      }
-      &:nth-child(2) {
-        background: #1ecb93;
-        background: url('../assets/design.png') no-repeat;
-      }
-      &:nth-child(3) {
-        background: #ff7230;
-        background: url('../assets/develop.png') no-repeat;
-      }
-      & > h3 {
-        font-size: 32px;
-        line-height: 60px;
-        margin: 16px 0 0;
-        text-align: left;
-      }
-      & > p {
-        font-size: 14px;
-        line-height: 24px;
-        margin: 36px 0 0;
-        text-align: left;
-      }
-    }
-  }
-  .main-source-list {
-    display: flex;
-    .source {
-      flex: 1;
-      height: 188px;
-      background-color: purple;
-      border-radius: 26px;
-      background: #f7f9fa;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-      font-size: 16px;
-      color: #101010;
-      &:nth-child(n + 2) {
-        margin-left: 38px;
-      }
-      & > img {
-        width: 95px;
-        height: 95px;
-        margin-bottom: 25px;
-      }
-      & > span {
-        font-size: 16px;
-        color: #101010;
-        line-height: 22px;
-      }
     }
   }
 }

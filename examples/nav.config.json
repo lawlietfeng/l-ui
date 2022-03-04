@@ -1,44 +1,43 @@
 [
   {
-    "name": "更新日志",
-    "path": ""
-  },
-  {
     "name": "开发指南",
     "children": [
       {
-        "name": "安装",
-        "path": ""
+        "path": "/installation",
+        "name": "安装"
       },
       {
-        "name": "开发规范",
-        "path": "./components/development-standard"
+        "path": "/quickstart",
+        "name": "快速上手"
+      },
+      {
+        "path": "/i18n",
+        "name": "国际化"
+      },
+      {
+        "path": "/custom-theme",
+        "name": "自定义主题"
+      },
+      {
+        "path": "/transition",
+        "name": "内置过渡动画"
       }
     ]
   },
   {
-    "name": "布局",
-    "children": [
+    "name": "组件",
+    "groups": [
       {
-        "name": "Layout 布局",
-        "path": ""
+        "name": "color 色彩",
+        "path": "color"
       },
-      {
-        "name": "Container 布局容器",
-        "path": ""
-      }
-    ]
-  },
-  {
-    "name": "基础组件",
-    "children": [
       {
         "name": "按钮",
-        "path": "/components/button"
+        "path": "button"
       },
       {
         "name": "按钮m",
-        "path": "/components/lm-button"
+        "path": "lm-button"
       }
     ]
   }

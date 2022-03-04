@@ -1,15 +1,27 @@
 import Vue from 'vue';
-import components from '../components.json';
+import navConfig from './nav.config.json';
 import Router from 'vue-router';
-
-const children = Object.keys(components).map((componentName) => {
-  return {
-    path: componentName,
-    name: componentName,
-    component: () => import(`./docs/${componentName}.md`),
-  };
+const children = []
+navConfig.forEach((module) => {
+  if (module.children) {
+    module.children.forEach(component => {
+      children.push(  {
+        path: '/components' +  component.path,
+        name: component.name,
+        // component: () => import(`./docs/${module.children.name}.md`),
+      })
+    })
+  } else {
+    module.groups.forEach(component => {
+      children.push(  {
+        path: '/components/' +  component.path,
+        name: component.name,
+        component: () => import(`./docs/${component.path}.md`),
+      })
+    })
+  }
 });
-
+console.log(children)
 Vue.use(Router);
 
 export default new Router({
@@ -19,18 +31,18 @@ export default new Router({
     {
       path: '/',
       redirect: 'l-ui',
-      component: (resolve) => require(['./layout/index.vue'], resolve),
+      component: () => import('./layout/index.vue'),
       children: [
         {
           path: '/l-ui',
           name: 'l-ui',
-          component: (resolve) => require(['./views/l-ui.vue'], resolve),
+          component: () => import('./views/l-ui.vue'),
         },
         {
           path: '/components',
           name: 'components',
           redirect: '/components/button',
-          component: (resolve) => require(['./layout/components.vue'], resolve),
+          component: () => import('./layout/components.vue'),
           children: [...children],
         },
       ],

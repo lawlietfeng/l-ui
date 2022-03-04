@@ -1,5 +1,6 @@
 <template>
   <div class="headerWrapper">
+    <div class="underline" ref="underline"></div>
     <header ref="header" class="header">
       <div class="container" :class="{ inMainPage: inMainPage }">
         <h1>
@@ -8,10 +9,10 @@
             <svg-icon className="logo" icon-class="logo"></svg-icon>
           </router-link>
         </h1>
-        <div class="header-search">
+        <!-- <div class="header-search">
           <input class="header-search__input" type="text" placeholder="搜索" />
           <svg-icon icon-class="search"></svg-icon>
-        </div>
+        </div> -->
         <!-- nav -->
         <ul class="nav">
           <!-- <li class="nav-item">
@@ -22,7 +23,7 @@
               设计原则
             </router-link>
           </li> -->
-          <li class="nav-item">
+          <li @click="linkClick($event)" class="nav-item">
             <router-link active-class="active" to="/components"> 组件 </router-link>
           </li>
           <li class="nav-item nav-item-theme">
@@ -49,11 +50,46 @@ export default {
       return this.$route.name === 'l-ui'
     },
   },
+  methods: {
+    linkClick(e) {
+      console.dir(e)
+      this.$refs.underline.left = `${e.clientX}px`
+    },
+  }
 }
 </script>
 <style lang="scss" scoped>
 .headerWrapper {
-  height: 58px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  position: relative;
+  .underline{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50px;
+    z-index: 10;
+    &::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background-color: #fff;
+    }
+    &::after{
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background-color: #fff;
+    }
+  }
 }
 
 .header {
@@ -69,7 +105,7 @@ export default {
   left: 0;
   width: 100%;
   line-height: 58px;
-  z-index: 100;
+  z-index: 9;
   position: relative;
   .container {
     width: 1366px;
@@ -159,6 +195,7 @@ export default {
     background: transparent;
     padding: 0;
     margin: 0;
+    position: relative;
     &::before,
     &::after {
       display: table;
@@ -189,11 +226,11 @@ export default {
         color: #baccd9;
       }
     }
-    &:last-child {
-      a {
-        padding-right: 0;
-      }
-    }
+    // &:last-child {
+    //   a {
+    //     padding-right: 0;
+    //   }
+    // }
   }
 }
 </style>
