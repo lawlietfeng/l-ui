@@ -1,7 +1,8 @@
-@import "./var.scss";
-html, body {
+@import './var.scss';
+html,
+body {
   height: 100%;
-  font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',SimSun,sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', SimSun, sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
@@ -43,7 +44,7 @@ section {
   box-sizing: border-box;
 }
 a {
-  color: #409EFF;
+  color: #409eff;
   text-decoration: none;
 }
 
@@ -52,7 +53,7 @@ ol {
   list-style: none;
 }
 
-#app{
+#app {
   height: 100%;
   overflow: hidden;
 }

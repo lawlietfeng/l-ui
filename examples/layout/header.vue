@@ -1,6 +1,5 @@
 <template>
   <div class="headerWrapper">
-    <div class="underline" ref="underline"></div>
     <header ref="header" class="header">
       <div class="container" :class="{ inMainPage: inMainPage }">
         <h1>
@@ -26,15 +25,16 @@
           <li @click="linkClick($event)" class="nav-item">
             <router-link active-class="active" to="/components"> 组件 </router-link>
           </li>
-          <li class="nav-item nav-item-theme">
+          <li @click="linkClick($event)" class="nav-item nav-item-theme">
             <router-link active-class="active" to="/source"> 资源 </router-link>
           </li>
-          <li class="nav-item">
+          <li @click="linkClick($event)" class="nav-item">
             <router-link active-class="active" to="/update-log" exact> 更新日志 </router-link>
           </li>
-          <li class="nav-item">
+          <li @click="linkClick($event)" class="nav-item">
             <router-link active-class="active" to="/question" exact> 问题反馈 </router-link>
           </li>
+          <div class="underline" ref="underline"></div>
         </ul>
       </div>
     </header>
@@ -52,43 +52,69 @@ export default {
   },
   methods: {
     linkClick(e) {
-      console.dir(e)
-      this.$refs.underline.left = `${e.clientX}px`
+      console.log(e.target.parentElement.offsetLeft)
+      const left = e.target.parentElement.offsetLeft
+      const width = e.target.parentElement.offsetWidth
+      this.$refs.underline.style.left = `${left}px`
+      this.$refs.underline.style.width = `${width}px`
     },
-  }
+    getDomLeft(dom) {
+      let left = 0
+      if (dom.tagName === 'BODY') {
+        return left
+      }
+      left = dom.offsetLeft + this.getDomLeft(dom.parentElement)
+      console.log(dom.tagName, dom.className, dom.offsetLeft)
+      return left
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
 .headerWrapper {
-  height: 90px;
+  height: 62px;
   display: flex;
   align-items: center;
-  background-color: #000;
+  // background-color: #000;
   position: relative;
-  .underline{
+  .underline {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 50px;
+    left: 0;
+    width: 72px;
     z-index: 10;
-    &::before{
+    transition: all 0.3s ease-in;
+    &::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
+      top: -1px;
+      left: -5px;
       width: 100%;
-      height: 20px;
-      background-color: #fff;
+      height: 50px;
+      border: 5px solid;
+      border-image: linear-gradient(45deg, #2486b9, #baccd9) 1;
+      clip-path: inset(2px round 31px);
+      animation: huerotate 3s infinite linear;
+      filter: hue-rotate(10deg);
+      @keyframes huerotate {
+        0% {
+          filter: hue-rotate(0deg);
+        }
+        100% {
+          filter: hue-rorate(180deg);
+        }
+      }
     }
-    &::after{
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 20px;
-      background-color: #fff;
-    }
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   bottom: 0;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 15px;
+    //   background-color: #fff;
+    // }
   }
 }
 
@@ -109,13 +135,12 @@ export default {
   position: relative;
   .container {
     width: 1366px;
-    margin: 0 auto;
-    padding: 0 136px 0 30px;
+    // margin: 0 auto;
+    padding: 0 136px;
     height: 100%;
     box-sizing: border-box;
-    box-shadow: 0px 2px 20px 0px rgba(233, 233, 233, 0.5);
+    // box-shadow: 0px 2px 20px 0px rgba(233, 233, 233, 0.5);
     &.inMainPage {
-      padding: 0 136px;
       box-shadow: none;
     }
   }
