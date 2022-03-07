@@ -36,8 +36,12 @@
         "path": "button"
       },
       {
-        "name": "按钮m",
+        "name": "lm-button 按钮",
         "path": "lm-button"
+      },
+      {
+        "name": "loading",
+        "path": "loading"
       }
     ]
   }

@@ -8,3 +8,10 @@ exports.alias = {
   examples: path.resolve(__dirname, '../examples'),
   'l-ui': path.resolve(__dirname, '../'),
 }
+
+exports.vue = {
+  root: 'Vue',
+  commonjs: 'vue',
+  commonjs2: 'vue',
+  amd: 'vue'
+};

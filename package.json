@@ -18,9 +18,10 @@
   "license": "MIT",
   "homepage": "none",
   "scripts": {
-    "build:dist": "cross-env NODE_ENV=development webpack --config build/webpack.config.js",
-    "dist": "webpack --config build/webpack.common.js ",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.js"
+    "dist": "cross-env NODE_ENV=development webpack --config build/webpack.common.js",
+    "build:dist": "cross-env NODE_ENV=production webpack --config build/webpack.conf.js && webpack --config build/webpack.common.js && webpack --config build/webpack.component.js",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.demo.js",
+    "build:demo": "cross-env NODE_ENV=production webpack --config build/webpack.demo.js"
   },
   "dependencies": {
     "babel-helper-vue-jsx-merge-props": "^2.0.3"

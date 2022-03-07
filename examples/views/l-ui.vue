@@ -5,24 +5,18 @@
       <h3>labalabala</h3>
       <button @click="$router.push('/components')">babala</button>
       <div style="display: flex">
-        <!-- <div style="width: 50px; height: 50px; background-color: #11659a">搪瓷蓝</div> -->
         <div style="width: 50px; height: 50px; background-color: #0f59a4">飞燕草蓝</div>
         <div style="width: 50px; height: 50px; background-color: #1772b4">群青</div>
-        <!-- <div style="width: 50px; height: 50px; background-color: #1677b3">天蓝</div> -->
         <div style="width: 50px; height: 50px; background-color: #2486b9">宝石蓝</div>
-        <!-- <div style="width: 50px; height: 50px; background-color: #1a94bc">钴蓝</div> -->
         <div style="width: 50px; height: 50px; background-color: #5698c3">睛蓝</div>
         <div style="width: 50px; height: 50px; background-color: #8fb2c9">晴山蓝</div>
         <div style="width: 50px; height: 50px; background-color: #baccd9">云水蓝</div>
       </div>
       <div style="display: flex">
-        <!-- <div style="width: 50px; height: 50px; background-color: #11659a">搪瓷蓝</div> -->
         <div style="width: 50px; height: 50px; background-color: #c0c4c3">月影白</div>
         <div style="width: 50px; height: 50px; background-color: #cdd1d3">银鱼白</div>
         <div style="width: 50px; height: 50px; background-color: #d8e3e7">云峰白</div>
-        <!-- <div style="width: 50px; height: 50px; background-color: #1677b3">天蓝</div> -->
         <div style="width: 50px; height: 50px; background-color: #eef7f2">月白</div>
-        <!-- <div style="width: 50px; height: 50px; background-color: #f8f4ed">汉白玉</div> -->
         <div style="width: 50px; height: 50px; background-color: #fffef8">象牙白</div>
         <div style="width: 50px; height: 50px; background-color: #ffffff">白</div>
       </div>

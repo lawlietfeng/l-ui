@@ -2,18 +2,17 @@ const path = require('path')
 // 构建进度条
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const Components = require('../components.json'); // 组件引入路径
 // webpack 公共配置
 const config = require('./config')
 
 module.exports = {
   mode: 'production',
-  entry: {
-    app: ['./src/index.js'], // Entry descriptor  传入一个对象 ./src/index.js
-  },
+  entry: Components, // 多入口打包
   output: {
     path: path.resolve(process.cwd(), './lib'), // 绝对路径
     publicPath: '/dist/', // 相对于服务(server-relative)
-    filename: 'l-ui.common.js', // 文件名
+    filename: '[name].js', // 文件名
     chunkFilename: '[id].js',
     library: {
       type: 'commonjs2', //配置将库暴露的方式

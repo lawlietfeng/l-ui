@@ -43,7 +43,14 @@ export default new Router({
           name: 'components',
           redirect: '/components/button',
           component: () => import('./layout/components.vue'),
-          children: [...children],
+          children: [
+            ...children,
+            {
+              path: '/components/demo',
+              name: 'demo',
+              component: () => import('./views/demo.vue'),
+            }
+          ],
         },
       ],
     },

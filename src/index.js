@@ -1,7 +1,8 @@
 import Button from '../packages/button/index'
+import Loading from '../packages/loading/index'
 
 // 组件数组
-const components = [Button]
+const components = [Button, Loading]
 
 // 定义组件批量注入
 const install = (Vue) => {
@@ -19,4 +20,5 @@ if (typeof window.Vue !== 'undefined' && window.Vue) {
 export default {
   install,
   Button,
+  Loading
 }

@@ -72,7 +72,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .headerWrapper {
-  height: 62px;
+  // height: 62px;
   display: flex;
   align-items: center;
   // background-color: #000;
@@ -83,26 +83,27 @@ export default {
     bottom: 0;
     left: 0;
     width: 72px;
-    z-index: 10;
+    z-index: -1;
     transition: all 0.3s ease-in;
     &::before {
       content: '';
       position: absolute;
-      top: -1px;
-      left: -5px;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 50px;
-      border: 5px solid;
+      height: 58px;
+      box-sizing: border-box;
+      border-bottom: 4px solid ;
       border-image: linear-gradient(45deg, #2486b9, #baccd9) 1;
-      clip-path: inset(2px round 31px);
+      clip-path: inset(0px round 15px);
       animation: huerotate 3s infinite linear;
-      filter: hue-rotate(10deg);
+      filter: hue-rotate(360deg);
       @keyframes huerotate {
         0% {
           filter: hue-rotate(0deg);
         }
         100% {
-          filter: hue-rorate(180deg);
+          filter: hue-rorate(360deg);
         }
       }
     }
@@ -242,13 +243,13 @@ export default {
     cursor: pointer;
     a {
       text-decoration: none;
-      color: #fffef8;
+      color: #baccd9;
       display: block;
       padding: 0 22px;
       &.active,
       &:hover {
         opacity: 1;
-        color: #baccd9;
+        color: #fffef8;
       }
     }
     // &:last-child {

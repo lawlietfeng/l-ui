@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
+// import Button from '../lib/button'
 import LUI from '../src/index'
-// import LUI from '../lib/l-ui.common'
+// import {Button} from '../lib/l-ui.common'
 import router from './router'
 import store from './store';
 import hljs from 'highlight.js'
@@ -10,9 +11,11 @@ import demoBlockM from './components/demo-block-m.vue'
 import './style/highlight.scss';
 import './style/reset.scss';
 import './icons';
+import './demo-style/index.scss';
 Vue.component('demo-block', demoBlock)
 Vue.component('demo-block-m', demoBlockM)
 Vue.use(LUI)
+// Vue.use(Button)
 Vue.config.productionTip = false
 
 router.afterEach(() => {
