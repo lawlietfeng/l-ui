@@ -4,22 +4,6 @@
       <h2>balabalaba</h2>
       <h3>labalabala</h3>
       <button @click="$router.push('/components')">babala</button>
-      <div style="display: flex">
-        <div style="width: 50px; height: 50px; background-color: #0f59a4">飞燕草蓝</div>
-        <div style="width: 50px; height: 50px; background-color: #1772b4">群青</div>
-        <div style="width: 50px; height: 50px; background-color: #2486b9">宝石蓝</div>
-        <div style="width: 50px; height: 50px; background-color: #5698c3">睛蓝</div>
-        <div style="width: 50px; height: 50px; background-color: #8fb2c9">晴山蓝</div>
-        <div style="width: 50px; height: 50px; background-color: #baccd9">云水蓝</div>
-      </div>
-      <div style="display: flex">
-        <div style="width: 50px; height: 50px; background-color: #c0c4c3">月影白</div>
-        <div style="width: 50px; height: 50px; background-color: #cdd1d3">银鱼白</div>
-        <div style="width: 50px; height: 50px; background-color: #d8e3e7">云峰白</div>
-        <div style="width: 50px; height: 50px; background-color: #eef7f2">月白</div>
-        <div style="width: 50px; height: 50px; background-color: #fffef8">象牙白</div>
-        <div style="width: 50px; height: 50px; background-color: #ffffff">白</div>
-      </div>
     </div>
   </div>
 </template>
@@ -37,6 +21,7 @@ export default {
       for (let i = 0; i < count; i++) {
         const div = document.createElement('div')
         div.className = className
+        div.style.backgroundColor = `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},${Math.random()})`
         df.appendChild(div)
       }
       target.appendChild(df)
@@ -85,7 +70,7 @@ export default {
           height: random(100) + 0px;
           top: random(500) + 0px;
           left: random(1200) + 0px;
-          background-color: rgb(random(255), random(255), random(255));
+          // background-color: rgb(random(255), random(255), random(255));
           animation: randomMove#{$i} 30s ease-in-out random(3) + 0s infinite alternate;
         }
       }

@@ -1,5 +1,6 @@
 <script>
 import { copy } from '../utils/index'
+import colorMap from '../color.json'
 export default {
   data() {
     return {
@@ -18,6 +19,7 @@ export default {
         { name: '月白', color: '#eef7f2' },
         { name: '象牙白', color: '#fffef8' },
       ],
+      colorMap,
     }
   },
   methods: {
@@ -46,8 +48,8 @@ export default {
 }
 </script>
 
-
 ## 蓝色
+
 <template>
   <div class="color">
     <div class="color-box" v-for="item in blueMap" :key="item.color">
@@ -60,12 +62,26 @@ export default {
 </template>
 
 ## 白色
+
 <template>
   <div class="color">
     <div class="color-box" v-for="item in whiteMap" :key="item.color">
       <div class="main-color" @click="copy(item.color)" :style="{ background: item.color, color: '#000' }">{{ item.name }}<br /><br />{{ item.color }}</div>
       <div class="gradual-color" :style="{ background: tintColor(item.color, 0.9) }">
         <div class="gradual-color-item"  @click="copy(tintColor(item.color, key / 10))" v-for="key in 8" :key="key" :style="{ background: tintColor(item.color, key / 10) }"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+## 全部色彩
+
+<template>
+  <div class="color">
+    <div class="color-box" v-for="item in colorMap" :key="item.hex">
+      <div class="main-color" @click="copy(item.hex)" :style="{ background: item.hex, color: '#000' }">{{ item.name }}<br /><br />{{ item.hex }}</div>
+      <div class="gradual-color" :style="{ background: tintColor(item.hex, 0.9) }">
+        <div class="gradual-color-item"  @click="copy(tintColor(item.hex, key / 10))" v-for="key in 8" :key="key" :style="{ background: tintColor(item.hex, key / 10) }"></div>
       </div>
     </div>
   </div>

@@ -1,18 +1,18 @@
 <template>
   <div class="loading__box">
     <div class="loading__box-bg">
-      <div class="g-container">
-        <div class="g-first"></div>
-        <div class="g-ball"></div>
-        <div class="g-ball"></div>
-        <div class="g-ball"></div>
-        <div class="g-ball"></div>
-        <div class="g-ball"></div>
-        <div class="g-ball"></div>
-        <div class="g-ball"></div>
+      <div class="loading__box-container">
+        <div class="loading__box-first"></div>
+        <div class="loading__box-ball"></div>
+        <div class="loading__box-ball"></div>
+        <div class="loading__box-ball"></div>
+        <div class="loading__box-ball"></div>
+        <div class="loading__box-ball"></div>
+        <div class="loading__box-ball"></div>
+        <div class="loading__box-ball"></div>
+        <div class="loading__box-ball"></div>
       </div>
     </div>
-    <p>{{loadingText}}</p>
   </div>
 </template>
 
@@ -29,9 +29,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$count: 7;
+$count: 8;
 .loading__box {
-  width: 140px;
+  width: 500px;
   height: 50px;
   padding: 10px;
   background-color: #fff;
@@ -40,31 +40,31 @@ $count: 7;
   .loading__box-bg {
     position: absolute;
     top: 0;
-    left: -40px;
-    width: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
     height: 50px;
-    z-index: -1;
     display: flex;
     filter: blur(5px) contrast(8);
     background: #fff;
     display: flex;
   }
 }
-.g-container {
+.loading__box-container {
   margin: auto;
   position: relative;
   width: 20px;
   height: 20px;
 }
 
-.g-ball,
-.g-first {
+.loading__box-ball,
+.loading__box-first {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #1772b4;
+  background: #12aa9c;
   border-radius: 50%;
   transform: translate(-700%, 0);
   opacity: 0;
@@ -72,17 +72,17 @@ $count: 7;
 }
 
 @for $i from 0 through $count {
-  .g-ball:nth-child(#{$i}) {
-    animation: move 3.5s infinite #{$i * 0.2 + 0.1}s linear;
+  .loading__box-ball:nth-child(#{$i}) {
+    animation: move 4s infinite #{$i * 0.2 + 0.1}s linear;
   }
 }
 
-.g-first {
-  animation: scaleMove 3.5s infinite linear;
+.loading__box-first {
+  animation: scaleMove 4s infinite linear;
 }
 
 @keyframes move {
-  25% {
+  20% {
     opacity: 1;
     transform: translate(-1vw, 0);
   }
@@ -98,7 +98,7 @@ $count: 7;
 }
 
 @keyframes scaleMove {
-  25% {
+  15% {
     opacity: 1;
     transform: translate(-1vw, 0);
   }
@@ -110,7 +110,6 @@ $count: 7;
     opacity: 1;
     transform: translate(1vw, 0) scale(2);
   }
-  90%,
   100% {
     opacity: 0;
     transform: translate(1vw, 0) scale(1);
