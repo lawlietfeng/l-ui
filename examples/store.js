@@ -14,7 +14,7 @@ export default new Vuex.Store({
   },
   getters: {
     inIframe() {
-      return window.frames.length === parent.frames.length;
+      return window.frames.length !== parent.frames.length;
     },
   },
 });

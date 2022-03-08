@@ -1,9 +1,9 @@
 <template>
-  <div class="demo-block" :class="[blockClass, { inIframe: !inIframe }]">
-    <div class="source" :class="{ inIframe: !inIframe }">
+  <div class="demo-block" :class="[blockClass, { inIframe: inIframe }]">
+    <div v-if="inIframe" class="source" :class="{ inIframe: inIframe }">
       <slot name="source"></slot>
     </div>
-    <div v-if="$slots.default && inIframe" class="description">
+    <div v-if="$slots.default && !inIframe" class="description">
       <slot></slot>
       <div class="demo-block-control">
         <svg-icon icon-class="openOnline"></svg-icon>
@@ -11,7 +11,7 @@
         <svg-icon icon-class="code" @click.native="isExpanded = !isExpanded"></svg-icon>
       </div>
     </div>
-    <div v-if="inIframe" ref="meta" class="meta">
+    <div v-if="!inIframe" ref="meta" class="meta">
       <div class="highlight">
         <slot name="highlight"></slot>
       </div>
@@ -46,28 +46,6 @@ export default {
     isExpanded(val) {
       this.codeArea.style.height = val ? `${this.codeAreaHeight + 1}px` : '0'
     },
-  },
-  mounted() {
-    if (this.$route.name.startsWith('lm-')) {
-      if (!this.inIframe) {
-        const contents = [...document.body.querySelectorAll('.content')]
-        const childs = contents.map((content) => [...content.children])
-        childs.forEach((child) => {
-          child.forEach((c) => {
-            // console.dir(c);
-            if (c.className.includes('demo-block') || c.localName === 'h2' || (c.localName === 'h3' && !['attributes'].includes(c.id))) {
-              return
-            }
-            c.style.display = 'none'
-          })
-        })
-      } else {
-        const sources = [...document.body.querySelectorAll('.source')]
-        sources.forEach((source) => {
-          source.style.display = 'none'
-        })
-      }
-    }
   },
   methods: {
     copyCode() {

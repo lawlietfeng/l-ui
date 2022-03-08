@@ -42,6 +42,10 @@
       {
         "name": "loading",
         "path": "loading"
+      },
+      {
+        "path": "lm-loading",
+        "name": "loading 加载"
       }
     ]
   }

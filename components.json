@@ -1,5 +1,6 @@
 {
   "button": "./packages/button/index.js",
   "lm-button": "./packages/button/index.js",
-  "loading": "./packages/loading/index.js"
+  "loading": "./packages/loading/index.js",
+  "lm-loading": "./packages/lm-loading/index.js"
 }

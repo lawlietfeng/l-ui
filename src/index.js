@@ -1,8 +1,9 @@
 import Button from '../packages/button/index'
 import Loading from '../packages/loading/index'
+import LmLoading from '../packages/lm-loading/index'
 
 // 组件数组
-const components = [Button, Loading]
+const components = [Button, Loading, LmLoading]
 
 // 定义组件批量注入
 const install = (Vue) => {
@@ -20,5 +21,6 @@ if (typeof window.Vue !== 'undefined' && window.Vue) {
 export default {
   install,
   Button,
-  Loading
+  Loading,
+  LmLoading
 }

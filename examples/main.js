@@ -12,6 +12,7 @@ import './style/highlight.scss';
 import './style/reset.scss';
 import './icons';
 import './demo-style/index.scss';
+import '../packages/theme-chalk/src/index.scss'
 Vue.component('demo-block', demoBlock)
 Vue.component('demo-block-m', demoBlockM)
 Vue.use(LUI)

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-if="inIframe"></Header>
+    <Header v-if="!inIframe"></Header>
     <router-view></router-view>
   </div>
 </template>

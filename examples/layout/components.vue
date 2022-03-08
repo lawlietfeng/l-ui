@@ -1,9 +1,9 @@
 <template>
   <div class="l-compoents">
-    <div class="l-compoents-container" :class="{ inIframe: inIframe  && $route.name.startsWith('lm-') }">
+    <div class="l-compoents-container" :class="{ inIframe: !inIframe  && $route.path.includes('lm-') }">
       <router-view></router-view>
     </div>
-    <iframe v-if="inIframe && $route.name.startsWith('lm-')" :src="origin" frameborder="0"></iframe>
+    <iframe v-if="!inIframe && $route.path.includes('lm-')" :src="origin" frameborder="0"></iframe>
   </div>
 </template>
 <script>
@@ -27,6 +27,7 @@ export default {
   }
 }
 iframe {
+  background-color: #fff;
   position: fixed;
   top: 140px;
   margin-left: 770px;

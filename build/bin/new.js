@@ -1,32 +1,29 @@
 'use strict'
 
-const readline = require('readline')
-
+console.log()
+process.on('exit', () => {
+  console.log('退出')
+})
+console.log()
+if (!process.argv[2]) {
+  console.error('[组件名]必填 - Please enter new component name')
+  process.exit(1)
+}
 const path = require('path')
 const fs = require('fs')
 const fileSave = require('file-save')
 const uppercamelcase = require('uppercamelcase')
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-})
-// 监听键入回车事件
-rl.on('line', (str) => {
-  // str即为输入的内容
-  // 关闭逐行读取流 会触发关闭事件
-  process.argv[2] = str
-  if (!process.argv[2]) {
-    console.error('[组件名]必填 - Please enter new component name')
-    process.exit(1)
-  }
-  const componentname = process.argv[2]
-  const chineseName = process.argv[3] || componentname
-  const ComponentName = uppercamelcase(componentname)
-  const PackagePath = path.resolve(__dirname, '../../packages', componentname)
-  const Files = [
-    {
-      filename: 'index.js',
-      content: `import ${ComponentName} from './src/main';
+const action = process.argv[4]
+const componentname = (action === 'pc' ? 'l-' : 'lm-') + process.argv[2]
+const chineseName = process.argv[3] || componentname
+const ComponentName = uppercamelcase(componentname)
+const PackagePath = path.resolve(__dirname, '../../packages', componentname)
+// 生成文件
+const Files = [
+  // 入口index
+  {
+    filename: 'index.js',
+    content: `import ${ComponentName} from './src/main';
 
 /* istanbul ignore next */
 ${ComponentName}.install = function(Vue) {
@@ -34,38 +31,29 @@ ${ComponentName}.install = function(Vue) {
 };
 
 export default ${ComponentName};`,
-    },
-    {
-      filename: 'src/main.vue',
-      content: `<template>
-  <div class="el-${componentname}"></div>
+  },
+  // 组件vue文件
+  {
+    filename: 'src/main.vue',
+    content: `<template>
+  <div class="${componentname}"></div>
 </template>
 
 <script>
 export default {
-  name: 'El${ComponentName}'
+  name: '${ComponentName}'
 };
 </script>`,
-    },
-    {
-      filename: path.join('../../examples/docs/zh-CN', `${componentname}.md`),
-      content: `## ${ComponentName} ${chineseName}`,
-    },
-    {
-      filename: path.join('../../examples/docs/en-US', `${componentname}.md`),
-      content: `## ${ComponentName}`,
-    },
-    {
-      filename: path.join('../../examples/docs/es', `${componentname}.md`),
-      content: `## ${ComponentName}`,
-    },
-    {
-      filename: path.join('../../examples/docs/fr-FR', `${componentname}.md`),
-      content: `## ${ComponentName}`,
-    },
-    {
-      filename: path.join('../../test/unit/specs', `${componentname}.spec.js`),
-      content: `import { createTest, destroyVM } from '../util';
+  },
+  // md文件
+  {
+    filename: path.join('../../examples/docs/', `${componentname}.md`),
+    content: `## ${componentname.split('-')[1]} ${chineseName}`,
+  },
+  // 单元测试文件
+  {
+    filename: path.join('../../test/unit/specs', `${componentname}.spec.js`),
+    content: `import { createTest, destroyVM } from '../util';
 import ${ComponentName} from 'packages/${componentname}';
 
 describe('${ComponentName}', () => {
@@ -80,71 +68,68 @@ describe('${ComponentName}', () => {
   });
 });
 `,
-    },
-    {
-      filename: path.join('../../packages/theme-chalk/src', `${componentname}.scss`),
-      content: `@import "mixins/mixins";
+  },
+  // scss文件
+  {
+    filename: path.join('../../packages/theme-chalk/src', `${componentname}.scss`),
+    content: `@import "mixins/mixins";
 @import "common/var";
 
 @include b(${componentname}) {
 }`,
-    },
-    {
-      filename: path.join('../../types', `${componentname}.d.ts`),
-      content: `import { ElementUIComponent } from './component'
+  },
+  // ts声明文件
+  {
+    filename: path.join('../../types', `${componentname}.d.ts`),
+    content: `import { LUIComponent } from './component'
 
 /** ${ComponentName} Component */
-export declare class El${ComponentName} extends ElementUIComponent {
+export declare class Com${ComponentName}  extends LUIComponent {
 }`,
-    },
-  ]
-  // 添加到 components.json
-  const componentsFile = require('../../components.json')
-  if (componentsFile[componentname]) {
-    console.error(`${componentname} 已存在.`)
-    process.exit(1)
-  }
-  componentsFile[componentname] = `./packages/${componentname}/index.js`
-  fileSave(path.join(__dirname, '../../components.json')).write(JSON.stringify(componentsFile, null, '  '), 'utf8').end('\n')
-
-  // 添加到 index.scss
-  const sassPath = path.join(__dirname, '../../packages/theme-chalk/src/index.scss')
-  const sassImportText = `${fs.readFileSync(sassPath)}@import "./${componentname}.scss";`
-  fileSave(sassPath).write(sassImportText, 'utf8').end('\n')
-
-  // 添加到 element-ui.d.ts
-  const elementTsPath = path.join(__dirname, '../../types/l-ui.d.ts')
-
-  let elementTsText = `${fs.readFileSync(elementTsPath)}
-/** ${ComponentName} Component */
-export class ${ComponentName} extends El${ComponentName} {}`
-
-  const index = elementTsText.indexOf('export') - 1
-  const importString = `import { El${ComponentName} } from './${componentname}'`
-
-  elementTsText = elementTsText.slice(0, index) + importString + '\n' + elementTsText.slice(index)
-
-  fileSave(elementTsPath).write(elementTsText, 'utf8').end('\n')
-
-  // 创建 package
-  Files.forEach((file) => {
-    fileSave(path.join(PackagePath, file.filename)).write(file.content, 'utf8').end('\n')
-  })
-
-  // 添加到 nav.config.json
-  const navConfigFile = require('../../examples/nav.config.json')
-
-  Object.keys(navConfigFile).forEach((lang) => {
-    let groups = navConfigFile[lang][4].groups
-    groups[groups.length - 1].list.push({
-      path: `/${componentname}`,
-      title: lang === 'zh-CN' && componentname !== chineseName ? `${ComponentName} ${chineseName}` : ComponentName,
-    })
-  })
-
-  fileSave(path.join(__dirname, '../../examples/nav.config.json')).write(JSON.stringify(navConfigFile, null, '  '), 'utf8').end('\n')
-
-  console.log('DONE!')
-
-  rl.close()
+  },
+]
+// 创建 package
+Files.forEach((file) => {
+  fileSave(path.join(PackagePath, file.filename)).write(file.content, 'utf8').end('\n')
 })
+
+// 添加到 components.json
+const componentsFile = require('../../components.json')
+if (componentsFile[componentname]) {
+  console.error(`${componentname} 已存在.`)
+  process.exit(1)
+}
+componentsFile[componentname] = `./packages/${componentname}/index.js`
+fileSave(path.join(__dirname, '../../components.json')).write(JSON.stringify(componentsFile, null, '  '), 'utf8').end('\n')
+
+// 添加到 index.scss
+const sassPath = path.join(__dirname, '../../packages/theme-chalk/src/index.scss')
+const sassImportText = `${fs.readFileSync(sassPath)}@import "./${componentname}.scss";`
+fileSave(sassPath).write(sassImportText, 'utf8').end('\n')
+
+// 添加到 l-ui.d.ts
+const lTsPath = path.join(__dirname, '../../types/l-ui.d.ts')
+
+let lTsText = `${fs.readFileSync(lTsPath)}
+/** ${ComponentName} Component */
+export class ${ComponentName} extends Com${ComponentName} {}`
+
+const index = lTsText.indexOf('export') - 1
+const importString = `import { Com${ComponentName} } from './${componentname}'`
+
+lTsText = lTsText.slice(0, index) + importString + '\n' + lTsText.slice(index)
+
+fileSave(lTsPath).write(lTsText, 'utf8').end('\n')
+
+// 添加到 nav.config.json
+const navConfigFile = require('../../examples/nav.config.json')
+console.log(navConfigFile[1], '[1]')
+let groups = navConfigFile[1].groups
+groups.push({
+  path: `${componentname}`,
+  name:  componentname !== chineseName ? `${componentname.split('-')[1]} ${chineseName}` : componentname.split('-')[1],
+})
+
+fileSave(path.join(__dirname, '../../examples/nav.config.json')).write(JSON.stringify(navConfigFile, null, '  '), 'utf8').end('\n')
+
+console.log('DONE!')

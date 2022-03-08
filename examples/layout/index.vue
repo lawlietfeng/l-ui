@@ -1,10 +1,10 @@
 <template>
-  <div class="examples-layout" :class="{ inIframe: !inIframe }">
-    <div class="examples-page__container" :class="{ inIframe: !inIframe }">
-      <div v-if="inIframe && isComponentPage" class="examples-layout__nav" :class="{ inIframe: !inIframe }">
+  <div class="examples-layout" :class="{ inIframe: inIframe }">
+    <div class="examples-page__container" :class="{ inIframe: inIframe }">
+      <div v-if="!inIframe && isComponentPage" class="examples-layout__nav" :class="{ inIframe: inIframe }">
         <side-nav />
       </div>
-      <div class="examples-layout__content" :class="{ inIframe: !inIframe, isComponentPage: isComponentPage }">
+      <div ref="layoutContent" class="examples-layout__content" :class="{ inIframe: inIframe, isComponentPage: isComponentPage }">
         <router-view></router-view>
       </div>
     </div>
@@ -12,22 +12,41 @@
 </template>
 
 <script>
-import sideNav from './side-nav.vue';
-import { mapGetters } from 'vuex';
+import sideNav from './side-nav.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     sideNav,
   },
   data() {
-    return {};
+    return {}
   },
   computed: {
     ...mapGetters(['inIframe']),
     isComponentPage() {
-      return /^\/component/.test(this.$route.fullPath);
+      return /^\/component/.test(this.$route.fullPath)
     },
   },
-};
+  mounted() {
+    if (this.$route.path.includes('lm-')) {
+      if (this.inIframe) {
+        let children = [...this.$refs.layoutContent.querySelector('.content').children]
+        children.forEach((element, index) => {
+          element.style.display = 'none'
+          if (element.className.includes('demo-block')) {
+            element.style.display = 'block'
+            console.log(children.map((e) => e.tagName))
+            const targetIndex = children.map((e) => e.tagName).lastIndexOf('H3', index)
+            console.log(targetIndex)
+            if (targetIndex !== -1) {
+              children[targetIndex].style.display = 'block'
+            }
+          }
+        })
+      }
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -135,7 +154,7 @@ $nav-width: 200px;
           margin-bottom: 45px;
           line-height: 1.5em;
           border-radius: 4px;
-          border: 1px solid #ECECEC;
+          border: 1px solid #ececec;
           td,
           th {
             padding: 10px;
@@ -150,17 +169,16 @@ $nav-width: 200px;
             white-space: nowrap;
             color: #333;
             font-weight: 700;
-            background: #F9FAFA;
-
+            background: #f9fafa;
           }
           td {
             color: #606266;
-            border-bottom: 1px solid #ECECEC;
+            border-bottom: 1px solid #ececec;
             // &:nth-child(n+2){
             //   border-left: 1px solid #ECECEC;
             // }
-            &:nth-child(n+4) {
-              color: #0061FF;
+            &:nth-child(n + 4) {
+              color: #0061ff;
             }
           }
         }
