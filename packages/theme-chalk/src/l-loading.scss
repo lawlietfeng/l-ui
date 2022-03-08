@@ -1,34 +1,7 @@
-<template>
-  <div class="loading__box">
-    <div class="loading__box-bg">
-      <div class="loading__box-container">
-        <div class="loading__box-first"></div>
-        <div class="loading__box-ball"></div>
-        <div class="loading__box-ball"></div>
-        <div class="loading__box-ball"></div>
-        <div class="loading__box-ball"></div>
-        <div class="loading__box-ball"></div>
-        <div class="loading__box-ball"></div>
-        <div class="loading__box-ball"></div>
-        <div class="loading__box-ball"></div>
-      </div>
-    </div>
-  </div>
-</template>
+@import "mixins/mixins";
+@import "common/var";
 
-<script>
-export default {
-  name: 'LLoading',
-  props: {
-    loadingText: {
-      type: String,
-      default: '',
-    },
-  },
-}
-</script>
 
-<style lang="scss" scoped>
 $count: 8;
 .loading__box {
   width: 500px;
@@ -115,4 +88,3 @@ $count: 8;
     transform: translate(1vw, 0) scale(1);
   }
 }
-</style>

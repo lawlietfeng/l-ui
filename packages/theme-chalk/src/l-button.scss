@@ -1,25 +1,8 @@
-<template>
-  <div class="l-button" :class="[type ? `l-button-${type}` : '']">
-    <slot></slot>
-  </div>
-</template>
+@import "mixins/mixins";
+@import "common/var";
 
-<script>
-export default {
-  name: 'LButton',
-  data() {
-    return {}
-  },
-  props: {
-    type: {
-      type: String,
-      default: 'primary',
-    },
-  },
-}
-</script>
 
-<style lang="scss" scoped>
+
 .l-button {
   &:nth-child(n + 2) {
     margin-left: 10px;
@@ -116,4 +99,3 @@ export default {
     transform: translate(1px, 5px);
   }
 }
-</style>

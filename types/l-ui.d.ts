@@ -2,6 +2,8 @@ import Vue, { PluginObject } from 'vue'
 import { LUIComponent, LUIComponentSize, LUIHorizontalAlignment } from './component'
 
 import { ComLmLoading } from './lm-loading'
+import { ComLLoading } from './l-loading'
+import { ComLButton } from './l-button'
 
 export interface InstallationOptions {
   locale: any
@@ -30,3 +32,9 @@ export type HorizontalAlignment = LUIHorizontalAlignment
 
 /** LmLoading Component */
 export class LmLoading extends ComLmLoading {}
+
+/** LLoading Component */
+export class LLoading extends ComLLoading {}
+
+/** LButton Component */
+export class LButton extends ComLButton {}

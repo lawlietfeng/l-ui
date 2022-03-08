@@ -47,7 +47,6 @@ export default {
   },
 }
 </script>
-
 ## 蓝色
 
 <template>
