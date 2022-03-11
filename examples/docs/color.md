@@ -47,7 +47,6 @@ export default {
   },
 }
 </script>
-
 ## 蓝色
 
 <template>
@@ -79,7 +78,7 @@ export default {
 <template>
   <div class="color">
     <div class="color-box" v-for="item in colorMap" :key="item.hex">
-      <div class="main-color" @click="copy(item.hex)" :style="{ background: item.hex, color: '#000' }">{{ item.name }}<br /><br />{{ item.hex }}</div>
+      <div class="main-color" @click="copy(item.hex)" :style="{ background: item.hex, color: '#000' }">{{ item.name }}({{ item.pinyin }})<br /><br />{{ item.hex }}</div>
       <div class="gradual-color" :style="{ background: tintColor(item.hex, 0.9) }">
         <div class="gradual-color-item"  @click="copy(tintColor(item.hex, key / 10))" v-for="key in 8" :key="key" :style="{ background: tintColor(item.hex, key / 10) }"></div>
       </div>

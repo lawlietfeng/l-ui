@@ -85,6 +85,7 @@ export default {
 $nav-width: 200px;
 .examples-layout {
   height: calc(100vh - 58px);
+  overflow-x: hidden;
   overflow-y: auto;
   overflow-y: overlay;
   @include scroll-bar;
@@ -96,7 +97,7 @@ $nav-width: 200px;
     margin: 0 auto;
     width: 1366px;
     position: relative;
-
+    height: 100%;
     // padding-left: $nav-width;
     &.inIframe {
       width: auto;

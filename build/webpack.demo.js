@@ -110,3 +110,5 @@ module.exports = {
     // }),
   ],
 }
+
+console.log('webpack.demo DONE!')

@@ -1,0 +1,27 @@
+{
+  "name": "l-ui-theme-chalk",
+  "version": "1.0.0",
+  "description": "lie-ui component chalk theme",
+  "main": "lib/index.css",
+  "style": "lib/index.css",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "gulp build"
+  },
+  "keywords": [
+    "lie-ui",
+    "theme"
+  ],
+  "author": "lawliet",
+  "license": "MIT",
+  "homepage": "",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-sass": "^5.1.0"
+  }
+}

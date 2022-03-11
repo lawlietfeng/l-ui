@@ -74,9 +74,11 @@ describe('${ComponentName}', () => {
     filename: path.join('../../packages/theme-chalk/src', `${componentname}.scss`),
     content: `@import "mixins/mixins";
 @import "common/var";
-
 @include b(${componentname}) {
-}`,
+}
+`,
+// @include b(${componentname}) {
+// }
   },
   // ts声明文件
   {
@@ -88,11 +90,6 @@ export declare class Com${ComponentName}  extends LUIComponent {
 }`,
   },
 ]
-// 创建 package
-Files.forEach((file) => {
-  fileSave(path.join(PackagePath, file.filename)).write(file.content, 'utf8').end('\n')
-})
-
 // 添加到 components.json
 const componentsFile = require('../../components.json')
 if (componentsFile[componentname]) {
@@ -101,6 +98,11 @@ if (componentsFile[componentname]) {
 }
 componentsFile[componentname] = `./packages/${componentname}/index.js`
 fileSave(path.join(__dirname, '../../components.json')).write(JSON.stringify(componentsFile, null, '  '), 'utf8').end('\n')
+
+// 创建 package
+Files.forEach((file) => {
+  fileSave(path.join(PackagePath, file.filename)).write(file.content, 'utf8').end('\n')
+})
 
 // 添加到 index.scss
 const sassPath = path.join(__dirname, '../../packages/theme-chalk/src/index.scss')
@@ -127,7 +129,7 @@ console.log(navConfigFile[1], '[1]')
 let groups = navConfigFile[1].groups
 groups.push({
   path: `${componentname}`,
-  name:  componentname !== chineseName ? `${componentname.split('-')[1]} ${chineseName}` : componentname.split('-')[1],
+  name: componentname !== chineseName ? `${componentname.split('-')[1]} ${chineseName}` : componentname.split('-')[1],
 })
 
 fileSave(path.join(__dirname, '../../examples/nav.config.json')).write(JSON.stringify(navConfigFile, null, '  '), 'utf8').end('\n')

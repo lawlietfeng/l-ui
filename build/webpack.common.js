@@ -56,8 +56,8 @@ module.exports = {
         },
       },
       {
-        test: /\.(scss|css)$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(svg|otf|ttf|woff2?|eot|gif|png|jpe?g)(\?\S*)?$/,
@@ -71,3 +71,5 @@ module.exports = {
   },
   plugins: [new ProgressBarPlugin(), new VueLoaderPlugin()],
 }
+
+console.log('webpack.common DONE!')

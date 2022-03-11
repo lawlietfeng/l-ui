@@ -41,7 +41,7 @@ export default new Router({
         {
           path: '/components',
           name: 'components',
-          redirect: '/components/button',
+          redirect: '/components/color',
           component: () => import('./layout/components.vue'),
           children: [
             ...children,

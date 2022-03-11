@@ -54,7 +54,7 @@ const createComponent = async (action) => {
 inquirer
   .prompt({
     type: 'list',
-    message: '选择您要执行的功能',
+    message: '选择您要创建的组件',
     name: 'action',
     choices: [
       {

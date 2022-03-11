@@ -93,7 +93,7 @@ export default {
       width: 100%;
       height: 58px;
       box-sizing: border-box;
-      border-bottom: 4px solid ;
+      border-bottom: 4px solid;
       border-image: linear-gradient(45deg, #2486b9, #baccd9) 1;
       clip-path: inset(0px round 15px);
       animation: huerotate 3s infinite linear;
@@ -136,8 +136,8 @@ export default {
   position: relative;
   .container {
     width: 1366px;
-    // margin: 0 auto;
-    padding: 0 136px;
+    margin: 0 auto;
+    // padding: 0 136px;
     height: 100%;
     box-sizing: border-box;
     // box-shadow: 0px 2px 20px 0px rgba(233, 233, 233, 0.5);

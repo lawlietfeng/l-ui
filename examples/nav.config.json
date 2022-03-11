@@ -32,20 +32,16 @@
         "path": "color"
       },
       {
-        "name": "按钮",
-        "path": "button"
-      },
-      {
-        "name": "lm-button 按钮",
-        "path": "lm-button"
-      },
-      {
-        "name": "loading",
-        "path": "loading"
-      },
-      {
         "path": "lm-loading",
         "name": "loading 加载"
+      },
+      {
+        "path": "l-loading",
+        "name": "loading 加载"
+      },
+      {
+        "path": "l-button",
+        "name": "button 按钮"
       }
     ]
   }

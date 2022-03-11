@@ -1,6 +1,6 @@
 <template>
   <div class="demo-block" :class="[blockClass, { inIframe: inIframe }]">
-    <div v-if="inIframe" class="source" :class="{ inIframe: inIframe }">
+    <div v-if="inIframe || !$route.path.includes('lm-')" class="source" :class="{ inIframe: inIframe }">
       <slot name="source"></slot>
     </div>
     <div v-if="$slots.default && !inIframe" class="description">
