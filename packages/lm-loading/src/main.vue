@@ -33,7 +33,24 @@ export default {
     },
   },
   methods: {
-    'fjdsajlkfjdlajljfldjlajlkfds'
+    fn(){
+      'fdjksajfldlsa'
+    },
+    fn(){
+      'fdjksajfldlsa'
+    },
+    fn(){
+      'fdjksajfldlsa'
+    },
+    fn(){
+      'fdjksajfldlsa'
+    },
+    fn(){
+      'fdjksajfldlsa'
+    },
+    fn(){
+      'fdjksajfldlsa'
+    },
   }
 }
 </script>
