@@ -5,7 +5,7 @@ module.exports = {
     browser: true,
   },
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 7,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
@@ -13,11 +13,9 @@ module.exports = {
     // 去除按需引入import的报错
     parser: 'babel-eslint',
   },
-  extends: ['plugin:vue/essential', 'eslint:recommended', 'prettier'],
-  plugins: ['vue', 'prettier'],
+  extends: ['eslint:recommended'],
+  plugins: ['vue'],
   rules: {
-    'prettier/prettier': 'error',
-    'arrow-body-style': 'off',
-    'prefer-arrow-callback': 'off',
+    "semi": "warn"
   },
 }
